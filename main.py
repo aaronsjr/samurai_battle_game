@@ -51,6 +51,7 @@ class Game:
                 if event.key == pygame.K_w:
                     if self.settings.DEBUG_MODE == True:
                         print("w:keydown")
+                    self.yellow_player.jumping = True
                     self.yellow_player.vertical_velocity = self.yellow_player.VERTICAL_MOVE_SPEED
                 elif event.key == pygame.K_a:
                     if self.settings.DEBUG_MODE == True:
@@ -81,6 +82,7 @@ class Game:
                     if self.settings.DEBUG_MODE == True:
                         print("w: keyup")
                     self.yellow_player.vertical_velocity = 0
+                    #self.yellow_player.jumping = False
                 elif event.key == pygame.K_a:
                     if self.settings.DEBUG_MODE == True:
                         print("a: keyup")

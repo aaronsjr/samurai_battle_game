@@ -3,7 +3,7 @@
 class Settings:
     def __init__(self, game):
         self.FULLSCREEN = False
-        self.FPS = 24
+        self.FPS = 30
         self.SCREEN_WIDTH = 1920
         self.SCREEN_HEIGHT = 1080
         self.DEBUG_MODE = True

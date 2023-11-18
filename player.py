@@ -7,11 +7,12 @@ class Player:
     def __init__(self, game):
         #Define the array that contains all of the frames of the samurai character.
         self.screen = game.screen
+        self.settings = game.settings
         self.RUNTIME_SCREEN_WIDTH = game.RUNTIME_SCREEN_WIDTH
         self.RUNTIME_SCREEN_HEIGHT = game.RUNTIME_SCREEN_HEIGHT
         self.HORIZONTAL_MOVE_SPEED = game.RUNTIME_SCREEN_WIDTH//160
         self.VERTICAL_MOVE_SPEED = game.RUNTIME_SCREEN_HEIGHT//90
-        self.JUMP_CUTOFF = 0.8*self.RUNTIME_SCREEN_WIDTH
+        self.JUMP_CUTOFF = 0.8*self.RUNTIME_SCREEN_HEIGHT
         self.image = pygame.image.load("yellow_player/run_0.png")
         self.rect = self.image.get_rect()
         self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
@@ -27,6 +28,7 @@ class Player:
         self.attacking = False
         self.moving = False
         self.jumping = False
+        self.falling = False
         self.horizontal_velocity = 0
         self.vertical_velocity = 0
         self.attack_sound = pygame.mixer.Sound("./attack_sound.mp3")
@@ -49,31 +51,25 @@ class Player:
             self.idle_frame_index = 0
 
         #If player is moving right then update the animation every time player_obj.blit() is called.
-        if self.moving == True:
-            self.image = pygame.image.load(self.move_frames[self.move_frame_index])
-            self.move_frame_index += 1
-        elif self.attacking == True:
+        if self.attacking == True:
             self.image = pygame.image.load(self.attack_frames[self.attack_frame_index])
             self.attack_frame_index += 1
+        
+        elif self.moving == True:
+            self.rect.x += self.horizontal_velocity
+            self.image = pygame.image.load(self.move_frames[self.move_frame_index])
+            self.move_frame_index += 1
+
         elif self.jumping == True:
-            if self.is_airborne() == 1:
-                self.image = pygame.image.load(self.jump_frames[1])
-            elif self.is_airborne() == -1:
-                self.image = pygame.image.load(self.jump_frames[2])
-            else:
-                self.image = pygame.image.load(self.jump_frames[self.jump_frame_index])
-                self.jump_frame_index += 1
+            self.jumping = False
+            pass
+
         else:
             self.image = pygame.image.load(self.idle_frames[self.idle_frame_index])
             self.idle_frame_index += 1
-        
+
         self.screen.blit(self.image, self.rect)
 
     def centre_player(self):
-        self.rect.midbottom = (self.RUNTIME_SCREEN_WIDTH//2, self.RUNTIME_SCREEN_HEIGHT-20)
+        self.rect.midbottom = (self.RUNTIME_SCREEN_WIDTH//2, self.RUNTIME_SCREEN_HEIGHT)
 
-    def is_airborne():
-        if self.rect.y < self.JUMP_CUTOFF and self.vertical_velocity < 0:
-            return -1
-        elif self.rect.y < self.JUMP_CUTOFF and self.vertical_velocity > 0:
-            return 1
