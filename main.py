@@ -2,14 +2,18 @@ import pygame
 import sys
 from settings import Settings
 from player import Player
+import pygame.mixer
 
 class Game:
     #Here is an example of a constructor method.
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         pygame.display.set_caption("Samurai battle game")
         self.background = pygame.image.load("./background.jpg")
         self.settings = Settings(self)
+        theme_1 = pygame.mixer.Sound("theme_1.mp3")
+        theme_2 = pygame.mixer.Sound("theme_2.mp3")
 
         #Check if user has specified fullscreen as an option in settings and enable if true
         if self.settings.FULLSCREEN == True:
@@ -45,48 +49,62 @@ class Game:
             #Check keydown events
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    print("w:keydown")
+                    if self.settings.DEBUG_MODE == True:
+                        print("w:keydown")
                     self.yellow_player.vertical_velocity = self.yellow_player.VERTICAL_MOVE_SPEED
                 elif event.key == pygame.K_a:
-                    print("a: keydown")
+                    if self.settings.DEBUG_MODE == True:
+                        print("a: keydown")
                     self.yellow_player.horizontal_velocity = 0-self.yellow_player.HORIZONTAL_MOVE_SPEED
                     self.yellow_player.moving = True
                 elif event.key == pygame.K_s:
-                    print("s: keydown")
+                    if self.settings.DEBUG_MODE == True:
+                        print("s: keydown")
                 elif event.key == pygame.K_d:
-                    print("d: keydown") 
+                    if self.settings.DEBUG_MODE == True:
+                        print("d: keydown") 
                     self.yellow_player.horizontal_velocity = self.yellow_player.HORIZONTAL_MOVE_SPEED  
                     self.yellow_player.moving = True
                 elif event.key == pygame.K_SPACE:
-                    print("spacebar: keydown ")
+                    if self.settings.DEBUG_MODE == True:
+                        print("spacebar: keydown ")
                 elif event.key == pygame.K_LSHIFT:
-                    print("lshift: keydown")
+                    if self.settings.DEBUG_MODE == True:
+                        print("lshift: keydown")
                     self.yellow_player.attacking = True
+                    self.yellow_player.attack_sound.play()
                     
             
             #Check keyup events
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
-                    print("w: keyup")
+                    if self.settings.DEBUG_MODE == True:
+                        print("w: keyup")
                     self.yellow_player.vertical_velocity = 0
                 elif event.key == pygame.K_a:
-                    print("a: keyup")
+                    if self.settings.DEBUG_MODE == True:
+                        print("a: keyup")
                     self.yellow_player.horizontal_velocity = 0
                     self.yellow_player.moving = False
                 elif event.key == pygame.K_d:
-                    print("d: keyup")
+                    if self.settings.DEBUG_MODE == True:
+                        print("d: keyup")
                     self.yellow_player.horizontal_velocity = 0
                     self.yellow_player.moving = False
                 elif event.key == pygame.K_s:
-                    print("s: keyup")
+                    if self.settings.DEBUG_MODE == True:
+                        print("s: keyup")
                     self.yellow_player.vertical_velocity = 0
                 elif event.key == pygame.K_LSHIFT:
-                    print("lshift: keyup")
+                    if self.settings.DEBUG_MODE == True:
+                        print("lshift: keyup")
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                print(f"click: {pygame.mouse.get_pos()}")
+                if self.settings.DEBUG_MODE == True:
+                    print(f"click: {pygame.mouse.get_pos()}")
 
 #This ensures that if I have imported main.py into another file then it does not run the game as part of the import.
+#Although this would cause a circular import so im not gonna do that!
 if __name__ == "__main__":
     game = Game()
     game.run()

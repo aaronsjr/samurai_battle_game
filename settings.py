@@ -6,3 +6,4 @@ class Settings:
         self.FPS = 24
         self.SCREEN_WIDTH = 1920
         self.SCREEN_HEIGHT = 1080
+        self.DEBUG_MODE = True

@@ -1,4 +1,5 @@
 import pygame
+import pygame.mixer
 
 class Player:
     #The following constructer method takes a game instance as an arg so that I can access the instance of screen
@@ -28,6 +29,7 @@ class Player:
         self.jumping = False
         self.horizontal_velocity = 0
         self.vertical_velocity = 0
+        self.attack_sound = pygame.mixer.Sound("./attack_sound.mp3")
         self.centre_player()
 
     
