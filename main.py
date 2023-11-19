@@ -72,8 +72,11 @@ class Game:
                 elif event.key == pygame.K_LSHIFT:
                     if self.settings.DEBUG_MODE == True:
                         print("lshift: keydown")
-                    self.yellow_player.attacking = True
-                    self.yellow_player.attack_sound.play()
+                    if self.yellow_player.attacking == True:
+                        pass
+                    else:
+                        self.yellow_player.attacking = True
+                        self.yellow_player.attack_sound.play()
                     
             
             #Check keyup events
