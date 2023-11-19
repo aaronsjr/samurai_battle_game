@@ -1,5 +1,6 @@
 import pygame
 import pygame.mixer
+import math
 
 class Player:
     #The following constructer method takes a game instance as an arg so that I can access the instance of screen
@@ -12,7 +13,7 @@ class Player:
         self.RUNTIME_SCREEN_HEIGHT = game.RUNTIME_SCREEN_HEIGHT
         self.HORIZONTAL_MOVE_SPEED = game.RUNTIME_SCREEN_WIDTH//160
         self.VERTICAL_MOVE_SPEED = game.RUNTIME_SCREEN_HEIGHT//90
-        self.JUMP_CUTOFF = 0.75*self.RUNTIME_SCREEN_HEIGHT
+        self.JUMP_CUTOFF = math.floor(0.68*self.RUNTIME_SCREEN_HEIGHT)
         self.image = pygame.image.load("yellow_player/run_0.png")
         self.rect = self.image.get_rect()
         self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
@@ -56,8 +57,8 @@ class Player:
             self.image = pygame.image.load(self.attack_frames[self.attack_frame_index])
             self.attack_frame_index += 1
         
-        elif self.moving == True:
-            if self.rect.x + self.horizontal_velocity >= self.RUNTIME_SCREEN_WIDTH - 200:
+        elif self.moving == True and self.jumping == False:
+            if self.rect.x + self.horizontal_velocity >= self.RUNTIME_SCREEN_WIDTH - 200: #200 is sprite width.
                 self.moving = False
             elif self.rect.x + self.horizontal_velocity <= 0:
                 self.moving = False
@@ -75,8 +76,13 @@ class Player:
                 if self.settings.DEBUG_MODE == True:
                     print(f"DEBUG: {self}.JUMP_CUTOFF reached")
                 self.falling = True
+                if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
+                    self.rect.x +=  self.horizontal_velocity
             elif self.rect.y > self.JUMP_CUTOFF and self.falling == False:
-                self.rect.y -= self.vertical_velocity                
+                self.rect.y -= self.vertical_velocity
+                self.image = pygame.image.load(self.jump_frames[0])                
+                if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
+                    self.rect.x += self.horizontal_velocity
                 if self.settings.DEBUG_MODE == True:
                     print(f"DEBUG: {self} is rising")
             elif self.rect.y + self.vertical_velocity <= self.RUNTIME_SCREEN_HEIGHT:
