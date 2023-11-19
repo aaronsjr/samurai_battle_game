@@ -1,7 +1,7 @@
 import pygame
 import sys
 from settings import Settings
-from player import Player
+from player import Yellow_Player
 import pygame.mixer
 
 class Game:
@@ -25,7 +25,7 @@ class Game:
         self.RUNTIME_SCREEN_WIDTH = self.screen.get_width()
         self.RUNTIME_SCREEN_HEIGHT = self.screen.get_height()
         self.background = pygame.transform.scale(pygame.image.load("./background.jpg"),(self.RUNTIME_SCREEN_WIDTH, self.RUNTIME_SCREEN_HEIGHT))
-        self.yellow_player = Player(self)
+        self.yellow_player = Yellow_Player(self)
         self.clock = pygame.time.Clock()
  
     def run(self):

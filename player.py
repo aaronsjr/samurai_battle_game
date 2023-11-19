@@ -2,7 +2,8 @@ import pygame
 import pygame.mixer
 import math
 
-class Player:
+#Define the private class player (it is only inhereted never directly used)
+class __Player:
     #The following constructer method takes a game instance as an arg so that I can access the instance of screen
     #that is present in the main game class. 
     def __init__(self, game):
@@ -14,15 +15,7 @@ class Player:
         self.HORIZONTAL_MOVE_SPEED = game.RUNTIME_SCREEN_WIDTH//160
         self.VERTICAL_MOVE_SPEED = game.RUNTIME_SCREEN_HEIGHT//90
         self.JUMP_CUTOFF = math.floor(0.68*self.RUNTIME_SCREEN_HEIGHT)
-        self.image = pygame.image.load("yellow_player/run_0.png")
         self.rect = self.image.get_rect()
-        self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
-                              "yellow_player/attack_4.png", "yellow_player/attack_5.png", "yellow_player/attack_6.png", "yellow_player/attack_7.png"]
-        self.idle_frames = ["yellow_player/idle_0.png", "yellow_player/idle_0.png", "yellow_player/idle_1.png", "yellow_player/idle_1.png", 
-                            "yellow_player/idle_2.png", "yellow_player/idle_2.png", "yellow_player/idle_3.png", "yellow_player/idle_3.png"]
-        self.jump_frames = ["yellow_player/jump_0.png", "yellow_player/jump_1.png", "yellow_player/jump_2.png", "yellow_player/jump_3.png"]
-        self.move_frames = ["yellow_player/run_0.png","yellow_player/run_1.png","yellow_player/run_2.png","yellow_player/run_3.png",
-                            "yellow_player/run_4.png","yellow_player/run_5.png"]
         self.move_frame_index = 0
         self.attack_frame_index = 0
         self.jump_frame_index = 0
@@ -34,7 +27,7 @@ class Player:
         self.horizontal_velocity = 0
         self.vertical_velocity = 0
         self.attack_sound = pygame.mixer.Sound("./attack_sound.mp3")
-        self.centre_player()
+        self.reset_player()
 
     
     def blit(self):
@@ -104,6 +97,30 @@ class Player:
 
         self.screen.blit(self.image, self.rect)
 
-    def centre_player(self):
+    def reset_player(self):
         self.rect.x, self.rect.y = (self.RUNTIME_SCREEN_WIDTH//8, self.RUNTIME_SCREEN_HEIGHT-150)
 
+class Yellow_Player(__Player):
+    def __init__(self, game):
+        self.image = pygame.image.load("yellow_player/run_0.png")
+        self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
+                              "yellow_player/attack_4.png", "yellow_player/attack_5.png", "yellow_player/attack_6.png", "yellow_player/attack_7.png"]
+        self.idle_frames = ["yellow_player/idle_0.png", "yellow_player/idle_0.png", "yellow_player/idle_1.png", "yellow_player/idle_1.png", 
+                            "yellow_player/idle_2.png", "yellow_player/idle_2.png", "yellow_player/idle_3.png", "yellow_player/idle_3.png"]
+        self.jump_frames = ["yellow_player/jump_0.png", "yellow_player/jump_1.png", "yellow_player/jump_2.png", "yellow_player/jump_3.png"]
+        self.move_frames = ["yellow_player/run_0.png","yellow_player/run_1.png","yellow_player/run_2.png","yellow_player/run_3.png",
+                            "yellow_player/run_4.png","yellow_player/run_5.png"]
+        super().__init__(game)
+
+class Red_Player(__Player):
+    def __init__(self, game):
+        self.image = None
+        self.attack_frames = [None]
+        self.idle_frames = [None]
+        self.jump_frames = [None]
+        self.move_frames = [None]
+        super().__init__(game)
+   
+    def reset_player(self):
+        #An example of polymorphism 
+        self.rect.x, self.rect.y = (self.RUNTIME_SCREEN_WIDTH - self.RUNTIME_SCREEN_WIDTH//8, self.RUNTIME_SCREEN_HEIGHT-150)
