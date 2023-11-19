@@ -17,7 +17,8 @@ class Player:
         self.rect = self.image.get_rect()
         self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
                               "yellow_player/attack_4.png", "yellow_player/attack_5.png", "yellow_player/attack_6.png", "yellow_player/attack_7.png"]
-        self.idle_frames = ["yellow_player/idle_0.png", "yellow_player/idle_1.png", "yellow_player/idle_2.png", "yellow_player/idle_3.png"]
+        self.idle_frames = ["yellow_player/idle_0.png", "yellow_player/idle_0.png", "yellow_player/idle_1.png", "yellow_player/idle_1.png", 
+                            "yellow_player/idle_2.png", "yellow_player/idle_2.png", "yellow_player/idle_3.png", "yellow_player/idle_3.png"]
         self.jump_frames = ["yellow_player/jump_0.png", "yellow_player/jump_1.png", "yellow_player/jump_2.png", "yellow_player/jump_3.png"]
         self.move_frames = ["yellow_player/run_0.png","yellow_player/run_1.png","yellow_player/run_2.png","yellow_player/run_3.png",
                             "yellow_player/run_4.png","yellow_player/run_5.png"]

@@ -10,7 +10,6 @@ class Game:
         pygame.init()
         pygame.mixer.init()
         pygame.display.set_caption("Samurai battle game")
-        self.background = pygame.image.load("./background.jpg")
         self.settings = Settings(self)
         theme_1 = pygame.mixer.Sound("theme_1.mp3")
         theme_2 = pygame.mixer.Sound("theme_2.mp3")
@@ -23,6 +22,7 @@ class Game:
         
         self.RUNTIME_SCREEN_WIDTH = self.screen.get_width()
         self.RUNTIME_SCREEN_HEIGHT = self.screen.get_height()
+        self.background = pygame.transform.scale(pygame.image.load("./background.jpg"),(self.RUNTIME_SCREEN_WIDTH, self.RUNTIME_SCREEN_HEIGHT))
         self.yellow_player = Player(self)
         self.clock = pygame.time.Clock()
  
