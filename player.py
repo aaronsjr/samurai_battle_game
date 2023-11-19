@@ -57,9 +57,14 @@ class Player:
             self.attack_frame_index += 1
         
         elif self.moving == True:
-            self.rect.x += self.horizontal_velocity
-            self.image = pygame.image.load(self.move_frames[self.move_frame_index])
-            self.move_frame_index += 1
+            if self.rect.x + self.horizontal_velocity >= self.RUNTIME_SCREEN_WIDTH - 200:
+                self.moving = False
+            elif self.rect.x + self.horizontal_velocity <= 0:
+                self.moving = False
+            else:
+                self.rect.x += self.horizontal_velocity
+                self.image = pygame.image.load(self.move_frames[self.move_frame_index])
+                self.move_frame_index += 1
 
         elif self.jumping == True:
             self.jumping = False
