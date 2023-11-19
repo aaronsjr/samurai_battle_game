@@ -12,7 +12,7 @@ class Player:
         self.RUNTIME_SCREEN_HEIGHT = game.RUNTIME_SCREEN_HEIGHT
         self.HORIZONTAL_MOVE_SPEED = game.RUNTIME_SCREEN_WIDTH//160
         self.VERTICAL_MOVE_SPEED = game.RUNTIME_SCREEN_HEIGHT//90
-        self.JUMP_CUTOFF = 0.8*self.RUNTIME_SCREEN_HEIGHT
+        self.JUMP_CUTOFF = 0.75*self.RUNTIME_SCREEN_HEIGHT
         self.image = pygame.image.load("yellow_player/run_0.png")
         self.rect = self.image.get_rect()
         self.attack_frames = ["yellow_player/attack_0.png", "yellow_player/attack_1.png", "yellow_player/attack_2.png", "yellow_player/attack_3.png",
@@ -67,8 +67,30 @@ class Player:
                 self.move_frame_index += 1
 
         elif self.jumping == True:
-            self.jumping = False
-            pass
+            #If player is below (pixels will be greater) self.JUMP_CUTOFF then subtract self.vertical_velocity
+            #If player is above (pixels will be smaller) self.JUMP_CUTOFF then add self.vertical_velocity
+            #If change in velocity would cause player y rect to be > self.RUNTIME_SCREEN_HEIGHT, then ignore input
+            #and set self.jumping = False.
+            if self.rect.y - self.vertical_velocity < self.JUMP_CUTOFF and self.falling == False:
+                if self.settings.DEBUG_MODE == True:
+                    print(f"DEBUG: {self}.JUMP_CUTOFF reached")
+                self.falling = True
+            elif self.rect.y > self.JUMP_CUTOFF and self.falling == False:
+                self.rect.y -= self.vertical_velocity                
+                if self.settings.DEBUG_MODE == True:
+                    print(f"DEBUG: {self} is rising")
+            elif self.rect.y + self.vertical_velocity <= self.RUNTIME_SCREEN_HEIGHT:
+                if self.settings.DEBUG_MODE == True:
+                    print("DEBUG {self} reached floor")
+                self.rect.y = self.RUNTIME_SCREEN_HEIGHT-150
+                self.falling = False
+                self.vertical_velocity = 0
+                self.jumping = False
+           
+            elif self.falling == True:
+                self.rect.y += self.vertical_velocity
+
+            
 
         else:
             self.image = pygame.image.load(self.idle_frames[self.idle_frame_index])
@@ -77,5 +99,5 @@ class Player:
         self.screen.blit(self.image, self.rect)
 
     def centre_player(self):
-        self.rect.midbottom = (self.RUNTIME_SCREEN_WIDTH//2, self.RUNTIME_SCREEN_HEIGHT)
+        self.rect.x, self.rect.y = (self.RUNTIME_SCREEN_WIDTH//8, self.RUNTIME_SCREEN_HEIGHT-150)
 

@@ -11,6 +11,8 @@ class Game:
         pygame.mixer.init()
         pygame.display.set_caption("Samurai battle game")
         self.settings = Settings(self)
+        if self.settings.DEBUG_MODE == True:
+            print("RUNNING IN DEBUG MODE")
         theme_1 = pygame.mixer.Sound("theme_1.mp3")
         theme_2 = pygame.mixer.Sound("theme_2.mp3")
 
@@ -84,8 +86,6 @@ class Game:
                 if event.key == pygame.K_w:
                     if self.settings.DEBUG_MODE == True:
                         print("w: keyup")
-                    self.yellow_player.vertical_velocity = 0
-                    #self.yellow_player.jumping = False
                 elif event.key == pygame.K_a:
                     if self.settings.DEBUG_MODE == True:
                         print("a: keyup")
