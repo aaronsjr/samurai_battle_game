@@ -24,6 +24,7 @@ class Game:
         
         self.RUNTIME_SCREEN_WIDTH = self.screen.get_width()
         self.RUNTIME_SCREEN_HEIGHT = self.screen.get_height()
+        self.FLOOR_HEIGHT = self.RUNTIME_SCREEN_HEIGHT-150
         self.background = pygame.transform.scale(pygame.image.load("./background.jpg"),(self.RUNTIME_SCREEN_WIDTH, self.RUNTIME_SCREEN_HEIGHT))
         self.yellow_player = Yellow_Player(self)
         self.clock = pygame.time.Clock()
@@ -52,28 +53,28 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     if self.settings.DEBUG_MODE == True:
-                        print("w:keydown")
+                        print("DEBUG: w: keydown")
                     self.yellow_player.jumping = True
                     self.yellow_player.vertical_velocity = self.yellow_player.VERTICAL_MOVE_SPEED
                 elif event.key == pygame.K_a:
                     if self.settings.DEBUG_MODE == True:
-                        print("a: keydown")
+                        print("DEBUG: a: keydown")
                     self.yellow_player.horizontal_velocity = 0-self.yellow_player.HORIZONTAL_MOVE_SPEED
                     self.yellow_player.moving = True
                 elif event.key == pygame.K_s:
                     if self.settings.DEBUG_MODE == True:
-                        print("s: keydown")
+                        print("DEBUG: s: keydown")
                 elif event.key == pygame.K_d:
                     if self.settings.DEBUG_MODE == True:
-                        print("d: keydown") 
+                        print("DEBUG: d: keydown") 
                     self.yellow_player.horizontal_velocity = self.yellow_player.HORIZONTAL_MOVE_SPEED  
                     self.yellow_player.moving = True
                 elif event.key == pygame.K_SPACE:
                     if self.settings.DEBUG_MODE == True:
-                        print("spacebar: keydown ")
+                        print("DEBUG: spacebar: keydown ")
                 elif event.key == pygame.K_LSHIFT:
                     if self.settings.DEBUG_MODE == True:
-                        print("lshift: keydown")
+                        print("DEBUG: lshift: keydown")
                     if self.yellow_player.attacking == True:
                         pass
                     else:
@@ -85,28 +86,28 @@ class Game:
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     if self.settings.DEBUG_MODE == True:
-                        print("w: keyup")
+                        print("DEBUG: w: keyup")
                 elif event.key == pygame.K_a:
                     if self.settings.DEBUG_MODE == True:
-                        print("a: keyup")
+                        print("DEBUG: a: keyup")
                     self.yellow_player.horizontal_velocity = 0
                     self.yellow_player.moving = False
                 elif event.key == pygame.K_d:
                     if self.settings.DEBUG_MODE == True:
-                        print("d: keyup")
+                        print("DEBUG: d: keyup")
                     self.yellow_player.horizontal_velocity = 0
                     self.yellow_player.moving = False
                 elif event.key == pygame.K_s:
                     if self.settings.DEBUG_MODE == True:
-                        print("s: keyup")
+                        print("DEBUG: s: keyup")
                     self.yellow_player.vertical_velocity = 0
                 elif event.key == pygame.K_LSHIFT:
                     if self.settings.DEBUG_MODE == True:
-                        print("lshift: keyup")
+                        print("DEBUG: lshift: keyup")
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.settings.DEBUG_MODE == True:
-                    print(f"click: {pygame.mouse.get_pos()}")
+                    print(f"DEBUG: click: {pygame.mouse.get_pos()}")
 
 #This ensures that if I have imported main.py into another file then it does not run the game as part of the import.
 #Although this would cause a circular import so im not gonna do that!

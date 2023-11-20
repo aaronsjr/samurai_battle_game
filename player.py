@@ -27,6 +27,8 @@ class __Player:
         self.horizontal_velocity = 0
         self.vertical_velocity = 0
         self.attack_sound = pygame.mixer.Sound("./attack_sound.mp3")
+        self.theme_1 = pygame.mixer.Sound("./theme_1.mp3")
+        self.FLOOR_HEIGHT = game.FLOOR_HEIGHT
         self.reset_player()
 
     
@@ -68,9 +70,9 @@ class __Player:
             if self.rect.y - self.vertical_velocity < self.JUMP_CUTOFF and self.falling == False:
                 if self.settings.DEBUG_MODE == True:
                     print(f"DEBUG: {self}.JUMP_CUTOFF reached")
-                self.falling = True
                 if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
                     self.rect.x +=  self.horizontal_velocity
+                self.falling = True
             elif self.rect.y > self.JUMP_CUTOFF and self.falling == False:
                 self.rect.y -= self.vertical_velocity
                 self.image = pygame.image.load(self.jump_frames[0])                
@@ -78,15 +80,16 @@ class __Player:
                     self.rect.x += self.horizontal_velocity
                 if self.settings.DEBUG_MODE == True:
                     print(f"DEBUG: {self} is rising")
-            elif self.rect.y + self.vertical_velocity <= self.RUNTIME_SCREEN_HEIGHT:
-                if self.settings.DEBUG_MODE == True:
-                    print("DEBUG {self} reached floor")
-                self.rect.y = self.RUNTIME_SCREEN_HEIGHT-150
-                self.falling = False
+            elif self.rect.y + self.vertical_velocity >= self.FLOOR_HEIGHT:
+                self.rect.y = self.FLOOR_HEIGHT
                 self.vertical_velocity = 0
+                self.falling = False
                 self.jumping = False
            
             elif self.falling == True:
+                print(f"DEBUG {self} is falling")
+                if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
+                    self.rect.x += self.horizontal_velocity
                 self.rect.y += self.vertical_velocity
 
             
