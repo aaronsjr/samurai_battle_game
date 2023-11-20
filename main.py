@@ -1,7 +1,7 @@
 import pygame
 import sys
 from settings import Settings
-from player import Yellow_Player
+from player import Yellow_Player, Red_Player
 import pygame.mixer
 
 class Game:
@@ -27,6 +27,7 @@ class Game:
         self.FLOOR_HEIGHT = self.RUNTIME_SCREEN_HEIGHT-150
         self.background = pygame.transform.scale(pygame.image.load("./background.jpg"),(self.RUNTIME_SCREEN_WIDTH, self.RUNTIME_SCREEN_HEIGHT))
         self.yellow_player = Yellow_Player(self)
+        #self.red_player = Red_Player(self)
         self.clock = pygame.time.Clock()
  
     def run(self):
@@ -100,7 +101,6 @@ class Game:
                 elif event.key == pygame.K_s:
                     if self.settings.DEBUG_MODE == True:
                         print("DEBUG: s: keyup")
-                    self.yellow_player.vertical_velocity = 0
                 elif event.key == pygame.K_LSHIFT:
                     if self.settings.DEBUG_MODE == True:
                         print("DEBUG: lshift: keyup")

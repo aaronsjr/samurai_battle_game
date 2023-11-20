@@ -69,7 +69,7 @@ class __Player:
             #and set self.jumping = False.
             if self.rect.y - self.vertical_velocity < self.JUMP_CUTOFF and self.falling == False:
                 if self.settings.DEBUG_MODE == True:
-                    print(f"DEBUG: {self}.JUMP_CUTOFF reached")
+                    print(f"DEBUG: {self} JUMP_CUTOFF reached")
                 if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
                     self.rect.x +=  self.horizontal_velocity
                 self.falling = True
@@ -81,13 +81,16 @@ class __Player:
                 if self.settings.DEBUG_MODE == True:
                     print(f"DEBUG: {self} is rising")
             elif self.rect.y + self.vertical_velocity >= self.FLOOR_HEIGHT:
+                if self.settings.DEBUG_MODE == True:
+                    print(f"DEBUG: {self} reached floor")
                 self.rect.y = self.FLOOR_HEIGHT
                 self.vertical_velocity = 0
                 self.falling = False
                 self.jumping = False
            
             elif self.falling == True:
-                print(f"DEBUG {self} is falling")
+                if self.settings.DEBUG_MODE == True:
+                    print(f"DEBUG: {self} is falling")
                 if self.moving == True and self.rect.x + self.horizontal_velocity > 0 and self.rect.x + self.horizontal_velocity < self.RUNTIME_SCREEN_WIDTH-200:
                     self.rect.x += self.horizontal_velocity
                 self.rect.y += self.vertical_velocity
