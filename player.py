@@ -120,13 +120,15 @@ class Yellow_Player(__Player):
 
 class Red_Player(__Player):
     def __init__(self, game):
-        self.image = None
-        self.attack_frames = [None]
-        self.idle_frames = [None]
-        self.jump_frames = [None]
-        self.move_frames = [None]
+        self.image = pygame.image.load("red_player/run_0.png")
         super().__init__(game)
+        self.attack_frames = ["red_player/run_0.png"]
+        self.idle_frames = ["red_player/run_0.png"]
+        self.jump_frames = ["red_player/run_0.png"]
+        self.move_frames = ["red_player/run_0.png", "red_player/run_1.png", "red_player/run_2.png", "red_player/run_3.png", "red_player/run_4.png", "red_player/run_5.png"]
+
+        self.moving = True
    
     def reset_player(self):
         #An example of polymorphism 
-        self.rect.x, self.rect.y = (self.RUNTIME_SCREEN_WIDTH - self.RUNTIME_SCREEN_WIDTH//8, self.RUNTIME_SCREEN_HEIGHT-150)
+        self.rect.x, self.rect.y = (self.RUNTIME_SCREEN_WIDTH-160 - self.RUNTIME_SCREEN_WIDTH//8, self.RUNTIME_SCREEN_HEIGHT-150)

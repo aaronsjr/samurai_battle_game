@@ -27,7 +27,7 @@ class Game:
         self.FLOOR_HEIGHT = self.RUNTIME_SCREEN_HEIGHT-150
         self.background = pygame.transform.scale(pygame.image.load("./background.jpg"),(self.RUNTIME_SCREEN_WIDTH, self.RUNTIME_SCREEN_HEIGHT))
         self.yellow_player = Yellow_Player(self)
-        #self.red_player = Red_Player(self)
+        self.red_player = Red_Player(self)
         self.clock = pygame.time.Clock()
  
     def run(self):
@@ -42,6 +42,7 @@ class Game:
         pygame.display.flip()
         self.screen.blit(self.background, (0, 0))
         self.yellow_player.blit()
+        self.red_player.blit()
         self.clock.tick(self.settings.FPS)
     
     #Another example of a private method.
